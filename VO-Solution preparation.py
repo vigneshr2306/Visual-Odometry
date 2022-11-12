@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
@@ -21,14 +18,13 @@ import numpy as np
 import os
 
 images = []
-path = "stereo\\centre\\"
+path = "oxford_dataset/"
 df = pd.read_excel('test.xlsx', sheet_name='Sheet1')
 df2 = pd.read_excel('test_code.xlsx', sheet_name='Sheet1')
-for image in os.listdir("stereo\\centre\\"):
+for image in os.listdir("oxford_dataset/"):
     images.append(image)
 sift = cv2.xfeatures2d.SIFT_create()
 fx, fy, cx, cy, G_camera_image, LUT = ReadCameraModel('model/')
-#fig1 = plt.figure()
 
 
 for i in df.index:
@@ -76,9 +72,7 @@ for i in df.index:
 
     plt.pause(0.0000001)
 
-    # plt.savefig('D:\\MD\\2nd sem\\perception\\pro5\\Oxford_dataset\\Oxford_dataset\\plots_final_ours\\'+str(i)+'.png')
     plt.savefig(
-        '/home/vicky/Coding/Projects/UMD-ROBOTICS-PERCEPTION/Visual\Odometry'+str(i)+'.png')
-    # plt.savefig('D:\\MD\\2nd sem\\perception\\pro5\\Oxford_dataset\\Oxford_dataset\\plots_final_rag\\'+str(i)+'.png')
+        '/home/vicky/Coding/Projects/Visual_Odometry'+str(i)+'.png')  # change to your directory
 
 # plt.show()

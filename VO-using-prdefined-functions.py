@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
-
 
 import cv2
 import numpy as np
@@ -21,6 +19,7 @@ import pandas as pd
 # Returns - Camera Calibration Matrix and LUT Transform
 ###############################################################################
 
+
 def getCameraMatric(path):
     images = []
     for image in os.listdir(path):
@@ -36,6 +35,7 @@ def getCameraMatric(path):
 # Returns - image converted into gray format
 ###############################################################################
 
+
 def undistortImageToGray(img):
     colorimage = cv2.cvtColor(img, cv2.COLOR_BayerGR2BGR)
     undistortedimage = UndistortImage(colorimage, LUT)
@@ -48,6 +48,7 @@ def undistortImageToGray(img):
 # Input - und1 (current frame in gray format), und2 (nextframe in gray format)
 # Returns - translation and orientation of next frame with respect to current frame
 ###############################################################################
+
 
 def returnPose(und1, und2, k):
     # find the keypoints and descriptors with SIFT
@@ -77,7 +78,7 @@ def returnPose(und1, und2, k):
 
     pts1 = pts1[mask.ravel() == 1]
     pts2 = pts2[mask.ravel() == 1]
-    
+
     E = k.T @ F @ k
     retval, R, t, mask = cv2.recoverPose(E, pts1, pts2, k)
     return R, t
@@ -87,6 +88,7 @@ def returnPose(und1, und2, k):
 # Input - R (Rotation Matrix), t (translation Matrix)
 # Returns - A Homogeneous Matrix
 ###############################################################################
+
 
 def Homogenousmatrix(R, t):
     z = np.column_stack((R, t))
@@ -130,13 +132,6 @@ for index in range(19, len(images) - 1):  # -1 is most important
 
     #print('loop', index - 1)
 
-#df = pd.DataFrame(l, columns = ['X', 'Y']) # Remove hash to store data in an excel sheet
-#df.to_excel('test.xlsx')
+# df = pd.DataFrame(l, columns = ['X', 'Y']) # Remove hash to store data in an excel sheet
+# df.to_excel('test.xlsx')
 plt.show()
-
-
-# In[ ]:
-
-
-
-

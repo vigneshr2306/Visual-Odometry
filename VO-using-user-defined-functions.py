@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import cv2
 import numpy as np
 import random
@@ -17,7 +14,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 images = []
-path = "KITTI_sequence_1/"
+path = "Oxford_dataset/"
 for image in os.listdir(path):  # Looping over all the images
     images.append(image)  # Storing all the image names in a list
     images.sort()  # Sorting the image names
@@ -210,7 +207,6 @@ def disambiguiousPose(Rlist, Clist, features1, features2):
     for index in range(0, len(Rlist)):  # Looping over all the rotation matrices
         # Determining the angles of the rotation matrix
         angles = rotationMatrixToEulerAngles(Rlist[index])
-        #print('angle', angles)
 
         # If the rotation of x and z axis are within the -50 to 50 degrees then it is considered down in the pipeline
         if angles[0] < 50 and angles[0] > -50 and angles[2] < 50 and angles[2] > -50:
@@ -346,8 +342,6 @@ for index in range(19, len(images)-1):  # Looping over all the images
     # Determining the transformation of the origin from current frame to next frame
     p = lastH @ origin
 
-    #print('x- ', p[0])
-    #print('y- ', p[2])
     l.append([p[0][0], -p[2][0]])
     plt.scatter(p[0][0], -p[2][0], color='r')
 
@@ -355,9 +349,4 @@ for index in range(19, len(images)-1):  # Looping over all the images
         break
 
 cv2.destroyAllWindows()
-#df = pd.DataFrame(l, columns = ['X', 'Y'])
-# df.to_excel('test_code_last1.xlsx')
 plt.show()
-
-
-# In[ ]:
